@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Fetch from "react-json-fetch"
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Fetch url="http://nguyenphucthinhwebapi.azurewebsites.net/api/product/findall">
+        {({ status, json }) => {
+          if (status && status.ok) { return <div>Hurray!</div> }
+          if (status && !status.ok) { return <div>{json}</div> }
+          return <div>Loading...</div>
+        }}
+      </Fetch>
     );
   }
 }
